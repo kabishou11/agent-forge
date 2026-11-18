@@ -10,6 +10,7 @@ docs/examples/synthetic-walkthrough.md
 docs/sources.md
 docs/validation.md
 release-manifest.txt
+scripts/check_commit_message.py
 scripts/smoke.py
 scripts/validate.py
 skills/forge-architectural-constraints/LICENSE
@@ -72,4 +73,5 @@ skills/forge-verification-harness/SKILL.md
 skills/forge-verification-harness/references/field-guide.md
 skills/forge-verification-harness/references/smoke-case.md
 skills/forge-verification-harness/references/sources.md
+tests/test_commit_message.py
 tests/test_validate.py

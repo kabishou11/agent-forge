@@ -34,6 +34,32 @@ python -m unittest discover -s tests -v
 
 Add a negative test when you add a new validator rule. Tests must run offline with the standard library. Do not commit generated caches, artifacts, logs, or local environment files. Update `release-manifest.txt` for every intended publication file; the validator fails on an unlisted file or a manifest entry that is not part of the release.
 
+## Commit messages
+
+Use Conventional Commits with a lowercase imperative subject and a required scope:
+
+```text
+type(scope): summary
+```
+
+Common types are `feat`, `fix`, `docs`, `test`, `refactor`, `chore`, `build`, `ci`, `perf`, and `revert`. Type and scope are lowercase; scope is kebab-case. Group related edits into one logical commit and keep unrelated formatting or cleanup out of it.
+
+The lightweight checker validates the format, case, and trailers. It does not judge whether the summary verb is imperative in English; reviewers check the wording. Apply the scope rule to new commits and do not rewrite history solely to add scopes to legacy commits.
+
+Do not create empty commits, rewrite pushed history, or add coauthor or tool-generation trailers. Run the checks before submitting. A draft message can be checked offline:
+
+```bash
+python3 scripts/check_commit_message.py message.txt
+```
+
+For example:
+
+```text
+docs(readme): explain project-local installation
+test(install): execute documented copy snippets
+feat(example): add runnable triage workflow
+```
+
 ## Review
 
 Changes should describe the user-visible problem, the evidence, and the untested boundary. Do not present a structural check as proof of model behavior.
