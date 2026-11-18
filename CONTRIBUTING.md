@@ -22,15 +22,17 @@ Add a stable source ID only when it materially informs a skill. Update the centr
 
 Do not include credentials, private absolute paths, personal email addresses, customer data, or session exports. Test fixtures for detectors must assemble synthetic strings at runtime rather than embedding real secrets. Label adaptations as original work and do not imply endorsement by a referenced author.
 
-## Validation
+## Validation and examples
 
-Run:
+Run from the repository root with Python 3.11 or newer:
 
 ```bash
-python scripts/validate.py
-python scripts/smoke.py
-python -m unittest discover -s tests -v
+python3 scripts/validate.py
+python3 scripts/smoke.py
+python3 -m unittest discover -s tests -v
 ```
+
+The tests execute the documented installation snippets in project-scoped temporary directories, check the installed bundle and relative links, exercise the refusal guard, and run the triage demo. They do not install globally or test host discovery. If you run the demo yourself, use a relative `--output` path and remove the output directory afterwards.
 
 Add a negative test when you add a new validator rule. Tests must run offline with the standard library. Do not commit generated caches, artifacts, logs, or local environment files. Update `release-manifest.txt` for every intended publication file; the validator fails on an unlisted file or a manifest entry that is not part of the release.
 

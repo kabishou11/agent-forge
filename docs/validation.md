@@ -1,18 +1,32 @@
 # Validation
 
-Agent Forge validates its own structure and publication hygiene. It does not evaluate whether a language model follows a skill, and it does not benchmark agent quality, cost, or productivity.
+Agent Forge validates its own structure, documented installation flow, example artifacts, and publication hygiene. It does not evaluate whether a language model follows a skill, and it does not benchmark agent quality, cost, or productivity.
 
 ## Commands
 
 Run from the repository root with Python 3.11 or newer:
 
 ```bash
-python scripts/validate.py
-python scripts/smoke.py
-python -m unittest discover -s tests -v
+python3 scripts/validate.py
+python3 scripts/smoke.py
+python3 -m unittest discover -s tests -v
 ```
 
-The validators exit non-zero and print each finding when a check fails. The test suite uses only the Python standard library and makes no network calls.
+The validators exit non-zero and print each finding when a check fails. The test suite uses only the Python standard library and makes no network calls. A drafted commit message can be checked separately with `python3 scripts/check_commit_message.py message.txt`.
+
+## Installation and example checks
+
+The unittest suite executes the installation snippets from both README files. Each run happens under a project-scoped temporary directory, not a global or user skill location. The tests check that:
+
+- The copied folder matches the source skill file for file, including `SKILL.md`, `LICENSE`, `NOTICES.md`, and every local reference.
+- Relative links inside the installed skill resolve, and the standalone bundle validator passes.
+- The `.agents/skills` and `.opencode/skills` examples behave the same way.
+- The guard refuses an existing destination file, directory, or symlink.
+- Existing user files outside the destination and the contents of a symlink target stay unchanged.
+
+The suite also runs the triage demo in [../examples/triage-repro-fix](../examples/triage-repro-fix/README.md). It requires the expected assertion failures for the dropped tag, the bounded diff, the passing rerun of the same test, the review checks, the evidence-review verdict, and the refusal to overwrite an existing output directory or symlink. The verdict must pass every stage gate; a harness or syntax error, unexpected passing before the repair, failure after the repair, or failed review checks produces `needs-work`.
+
+Negative mutation tests copy the example into project-scoped temporary directories and replace one fixture at a time to prove those cases do not become `evidence-ready`. These are installation and artifact-flow checks, not host discovery or model-effectiveness tests.
 
 ## Restricted frontmatter profile
 
@@ -63,6 +77,7 @@ The unittest suite does not only run the happy path. It mutates synthetic fixtur
 - A release manifest with an unlisted file or a log entry.
 - A smoke case missing a required artifact status.
 - A smoke case with a list or object status, or with unhashable entries in `required_fields`.
+- Invalid reproduction, unexpected passing before repair, failure after repair, and review-only failure in copied example fixtures.
 
 The leak fixtures build strings from fragments so the test file does not itself embed a credential-shaped literal. Each negative test asserts that the expected check reports an error.
 
@@ -70,7 +85,19 @@ Publication hygiene uses heuristic pattern checks for secrets, private absolute 
 
 ## Worked example
 
-The synthetic walkthrough in [examples/synthetic-walkthrough.md](examples/synthetic-walkthrough.md) is an illustrative, offline example of how the skills compose. Each skill also ships a `references/smoke-case.md` that names a synthetic input, an expected artifact schema and status fields, and a stop case. These are repeatable structural fixtures, not model-behavior evaluations, benchmarks, or evidence that a host model will follow the workflow.
+The runnable example in [../examples/triage-repro-fix](../examples/triage-repro-fix/README.md) executes one synthetic defect through intent, failing reproduction, a bounded repair, the same passing verification, and an evidence review. Its artifacts record the commands and exit codes. It is an executable artifact flow, not evidence that a model will choose or follow the skill.
+
+The synthetic walkthrough in [examples/synthetic-walkthrough.md](examples/synthetic-walkthrough.md) is a design sketch of how several skills can compose. Each skill also ships a `references/smoke-case.md` that names a synthetic input, an expected artifact schema and status fields, and a stop case. These are repeatable structural fixtures, not model-behavior evaluations, benchmarks, or evidence that a host model will follow the workflow.
+
+## Host compatibility
+
+Skill folders use lowercase kebab-case names that match their parent directories, trigger-oriented descriptions, and progressive disclosure through local references. The layout matches the Agent Skills conventions checked on 2026-11-18. Public host references checked on that date:
+
+- [Agent Skills specification](https://agentskills.io/specification)
+- [Codex skills documentation](https://learn.chatgpt.com/docs/build-skills.md)
+- [OpenCode skills documentation](https://opencode.ai/docs/skills/)
+
+Some hosts also document user-level skill directories. Follow the host's own documentation for those locations. Agent Forge is not a plugin package and does not install globally or automatically.
 
 ## Offline boundary
 
@@ -78,14 +105,14 @@ Validation is offline after the repository and Python runtime are present. The G
 
 ## Exact untested boundary
 
-Passing the schema, link, source-map, and hygiene checks does not prove that:
+Passing the schema, link, source-map, hygiene, installation, and example checks does not prove that:
 
 - A host application discovers these skills. Discovery rules are documented by the host, but no live host installation or behavior was tested here.
 - A model will follow the instructions, load a reference on demand, or preserve the intended order.
 - Work produced with a skill is better, faster, cheaper, or safer than work without it.
-- A smoke case predicts real model output. It checks fixture structure and status vocabulary only.
+- A smoke case or the runnable example predicts real model output. They check fixture structure, copied files, and artifact flow only.
 - A security review, formal proof, or human approval is complete.
 - The privacy scan proves that no secret exists.
 - A skill's advice overrides host policies, approvals, sandbox rules, or user authority.
 
-These are compatibility and structural checks only. The toolkit is not a plugin package, and the repository does not install skills globally.
+These are compatibility, installation, and structural checks only. The toolkit is not a plugin package, and the repository does not install skills globally.

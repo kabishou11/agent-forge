@@ -2,6 +2,20 @@
 
 All notable changes to this original toolkit are recorded here. Dates use the Asia/Shanghai calendar date.
 
+## Unreleased
+
+### Added
+
+- A runnable triage example that turns a synthetic bug report into an intent brief, expected failing assertions, a bounded repair, the same passing verification, and an evidence review. Its verdict requires every stage gate, so import, syntax, harness, before-repair pass, after-repair failure, and review-only failure produce `needs-work`.
+- Installation regression tests that execute the documented copy snippets, compare the installed skill file for file, resolve local links, exercise the refusal guard, and leave user content unchanged, plus negative mutation tests for false-positive example verdicts.
+- A lightweight standard-library commit-message check with negative tests.
+
+### Changed
+
+- Rewrote the English and Simplified Chinese README files around product value, guarded project-local installation, a runnable first workflow, ten-skill navigation, and concise rights notes.
+- Moved host compatibility references and the detailed untested boundary into the validation guide.
+- Added Conventional Commits guidance and grouped-change expectations to the contribution guide.
+
 ## 0.1.0 - 2026-11-18
 
 ### Added

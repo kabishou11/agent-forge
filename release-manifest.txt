@@ -9,6 +9,13 @@ THIRD_PARTY_NOTICES.md
 docs/examples/synthetic-walkthrough.md
 docs/sources.md
 docs/validation.md
+examples/triage-repro-fix/README.md
+examples/triage-repro-fix/bug-report.md
+examples/triage-repro-fix/fixture/buggy_tags.py
+examples/triage-repro-fix/fixture/fixed_tags.py
+examples/triage-repro-fix/fixture/review_checks.py
+examples/triage-repro-fix/fixture/test_tags.py
+examples/triage-repro-fix/run_demo.py
 release-manifest.txt
 scripts/check_commit_message.py
 scripts/smoke.py
@@ -74,4 +81,6 @@ skills/forge-verification-harness/references/field-guide.md
 skills/forge-verification-harness/references/smoke-case.md
 skills/forge-verification-harness/references/sources.md
 tests/test_commit_message.py
+tests/test_docs_installation.py
+tests/test_example_workflow.py
 tests/test_validate.py

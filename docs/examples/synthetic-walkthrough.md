@@ -1,6 +1,6 @@
 # Synthetic walkthrough
 
-This is an illustrative, offline example. It uses a fictional export flow and invented observations. It is not a behavioral evaluation, a benchmark, or proof that a host will follow the skills.
+This is an illustrative, offline example. It uses a fictional export flow and invented observations. It is not a behavioral evaluation, a benchmark, or proof that a host will follow the skills. For an example that actually runs and checks its artifacts, see [the triage demo](../../examples/triage-repro-fix/README.md).
 
 ## Scenario input
 
